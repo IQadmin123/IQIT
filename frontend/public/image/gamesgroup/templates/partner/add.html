@@ -1,0 +1,95 @@
+{% extends "core_block.html" %}
+{% load filter_tags %}
+{% block content %}
+<p></p>
+<center>
+    <table>
+        <form action="{{ request.path }}" method="POST" enctype="multipart/form-data">
+            <h1>Add Partner</h1>
+            {% csrf_token %}
+            <tr>
+                <th>Ref-id:</th>
+                <td><input type="text" name="referall"></td>
+            </tr>
+            <tr>
+
+                <th>Department :</th>
+                <td>
+                    <select name="Department">
+                        <option name="Adsales" selected>Adsales</option>
+                        <option name="BizDev" selected>BizDev</option>
+                        <option name="Marketing" selected>Marketing</option>
+                        <option name="Organic" selected>Organic</option>
+                        <option name="PF Marketing" selected>PF Marketing</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Start Date</th>
+                <!-- <input class="datepicker" name="start_date" value={{single_partner_data.start_date}}> -->
+                <td><input type="text" class="startdate" size="30" name="start_date"></td>
+            </tr>
+            <tr>
+                <th>End Date</th>
+                <!-- <input class="datepicker" name="end_date" value={{single_partner_data.end_date}}> -->
+                <td><input type="text" class="startdate" size="30" name="end_date"></td>
+            </tr>
+            <tr>
+                <th>Type :</th>
+                <td>
+                    <select name="type">
+                        <option value="" selected></option>
+                        <option value="cpl" id="cpl">CPL</option>
+                        <option value="share" id="share">share</option>
+                        <option value="both" id="both">Both</option>
+                    </select>
+                </td>
+            </tr>
+            <tr id="shre">
+                <th>Share :</th>
+                <td><input type="text" name="share" value="0"></td>
+            </tr>
+            <tr id="cp">
+                <th>CPL :</th>
+                <td><input type="text" name="cpl" value="0"></td>
+            </tr>
+            <td><input type="submit" value="Submit_Partner"></td>
+        </form>
+    </table>
+    {% if error %}
+    <p>{{error}}</p>
+    {% elif message %}
+    <p>{{message}}</p>
+    {% endif %}
+    {% if info %}
+    <p>{{info}}</p>
+    {% endif %}
+</center>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#shre').hide();
+        $('#cp').hide();
+        $(".startdate").datepicker({
+            dateFormat: 'dd/mm/yy',//check change
+            changeMonth: true,
+            changeYear: true
+        });
+    }
+    );
+</script>
+
+<script type="text/javascript">
+    $('#share').click(function () {
+        $('#cp').hide()
+        $('#shre').show()
+    });
+    $('#cpl').click(function () {
+        $('#shre').hide()
+        $('#cp').show()
+    });
+    $('#both').click(function () {
+        $('#shre').show()
+        $('#cp').show()
+    });            
+</script>
+{% endblock content %}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+</head>
+
+<body>
+    {% if error %}
+    <center>
+        <p>{{error}}</p>
+        {% elif message %}
+        <p>{{message}}</p>
+    </center>
+    {% endif %}
+    <center>
+        <form action="/game/add" method="POST" enctype="multipart/form-data" id="game_form">
+            {% csrf_token %}
+            <label>
+                <h1>Add Game</h1>
+            </label>
+            <table>
+                <tr>
+                    <th>Game Shortname:</th>
+                    <td><input type="text" name="short_name"></td>
+                </tr>
+                <tr>
+                    <th>Game Image:</th>
+                    <td><input type="file" accept=".jpg,.png" name="img"></td>
+                </tr>
+                <tr>
+                    <th>Name :</th>
+                    <td><input type="text" name="namess"></td>
+                </tr>
+                <tr>
+                    <th>Category :</th>
+                    <td>
+                        <select name="category_gm">
+                        <option name="Adventure">Adventure</option>
+                        <option name="Puzzles">Puzzles</option>
+                        <option name="Tactics">Tactics</option>
+                    </select>
+                </td>
+                </tr>
+            </table>
+            <input type="submit" value="Submit">
+        </form>
+        {% if info_er %}
+        <p>{{info_er}}</p>
+        {% endif %}
+    </center>
+</body>
+
+</html>

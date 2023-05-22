@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load filter_tags %}
+<head>
+    <title>Ref-id</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css"
+        rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/c65e8813aa.js" crossorigin="anonymous"></script>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <p>{{ request.path }} </p> -->
+    <!-- <button id="add">Add Buttons</button>
+    <button id="show">Show Buttons</button> -->
+    {% if error %}
+    <p>{{error}}</p>
+    {% elif message %}
+    <p>{{message}}</p>
+    {% endif %}
+    {% if '/game/' in request.path %}
+    <div>
+        <button id="gm">Add game</button>
+        <button id="sh_gm">Show Game</button>
+    </div>
+    {% endif %}
+    <div id="sh">
+    </div>
+    
+    {% if single_game_data %}
+        <form action="{{request.path}}" method="POST" id="game_update" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h1>Update Games Details</h1>
+            <input type="hidden" name="_method" value="PUT">
+            {% for x,y in single_game_data.items %}
+            <!-- <p>{{x}}</p> -->
+            <!-- <p>{{y}}</p> -->
+            <div>
+                <label>{{x}}</label>
+                {% if 'id' in x or 'short_name' in x %}
+                <input type="text" value="{{y}}" readonly>
+                {% elif 'img' in x %}
+                <img src="{{y}}" alt="image" width="100" height="100">
+                <input type="file" accept=".jpg,.png" name="{{x}}">
+                {% else %}
+                <input type="text" value="{{y}}" name="{{x}}">
+                {% endif %}
+            </div>
+            {% endfor %}
+            <input type="submit" value="Update">
+        </form>
+        {% endif %}
+    <center>
+        {% if all_Games %}
+        <table id="game_table" border="1">
+            <thead>
+                <tr>
+                    {% for x in data %}
+                    <th>{{x}}</th>
+                    {% endfor %}
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for x in all_Games %}
+                <tr>
+                    {% for y,z in x.items %}
+                    <td id="{{x.short_name}}">{{z}}</td>
+                    {% endfor %}
+                    <td>
+                        <!-- <button>{{x.short_name}}</button> -->
+                        <button>
+                            <a href="/game/{{x.short_name}}/">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>
+                        </button>
+                        <form action="/game/{{x.short_name}}/" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="_method" value="DELETE">
+                            <!-- <input type="submit" class="fa fa-pencil" aria-hidden="true"> -->    
+                            <button type="submit">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                        <button>
+                            <a href="/partners/{{x.short_name}}/"><i class="fa fa-user" aria-hidden="true"></i>
+                            </a>
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        
+        {% endif %}
+    </center>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#partner_form").hide()
+            $("#game_form").hide()
+            $('#shre').hide();
+            $('#cp').hide();
+            $('#ad').hide();
+            $('#sh').hide();
+            $('#game_table').hide();
+            $('#partner_table').hide();
+        }
+        );
+    </script>
+    <script type="text/javascript">
+        $('#sh_gm').click(function () {
+            $('#game_table').toggle()
+            if ($('#sh_gm').text() === 'Show Game') {
+                $('#sh_gm').html('Hide Game')
+            }
+            else {
+                $('#sh_gm').html('Show Game')
+            }
+        })
+        $('#sh_cm').click(function () {
+            $('#partner_table').toggle()
+            if ($('#sh_cm').text() === 'Show Partners') {
+                $('#sh_cm').html('Hide Partners')
+            }
+            else {
+                $('#sh_cm').html('Show Partners')
+            }
+        })
+        $('#pt').click(function () {
+            $("#partner_form").toggle()
+            if ($('#pt').text() === 'Add Partner') {
+                $('#pt').html('Hide Partner')
+            }
+            else {
+                $('#pt').html('Add Partner')
+            }
+        });
+        $('#gm').click(function () {
+            $("#game_form").toggle()
+            if ($('#gm').text() === 'Add Game') {
+                $('#gm').html('Hide Game')
+            }
+            else {
+                $('#gm').html('Add Game')
+            }
+        });
+        $('#share').click(function () {
+            $('#cp').hide()
+            $('#shre').show()
+        });
+        $('#cpl').click(function () {
+            $('#shre').hide()
+            $('#cp').show()
+        });
+        $('#both').click(function () {
+            $('#shre').show()
+            $('#cp').show()
+        });    
+    </script>
+    <script type="text/javascript">
+        $('.datepicker').datepicker({
+            weekStart: 1,
+            daysOfWeekHighlighted: "6,0",
+            autoclose: true,
+            todayHighlight: true,
+        });
+        //$('#datepicker').datepicker("setDate", new Date());
+    </script>
+</body>
+
+</html>

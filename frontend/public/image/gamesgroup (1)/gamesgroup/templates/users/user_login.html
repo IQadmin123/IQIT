@@ -1,0 +1,56 @@
+{% extends "core_block.html" %}
+{% block content %}
+<!-- <h1>Login Form</h1> -->
+{% if user.is_authenticated %}
+<p>Welcome, {{ user.username }} ! </p>
+<button><a href="http://127.0.0.1:8000/logout">logout</a></button>
+<button><a href="/edit_user/{{ user.username }}">edit_user</a></button>
+<button><a href="game/">Games</a></button>
+{% else %}
+<center>
+    <table>
+        <form method="POST" action="login" id="form_login">
+            {% csrf_token %}
+            <h1>Login page</h1>
+            <tr>
+                <th>User Name </th>
+                <td><input type="text" name="username" id="login_user" autofocus required placeholder="User Name"></td>
+            </tr>
+            <tr>
+                <th>Password </th>
+                <td><input type="password" name="password" value="" placeholder="Password"></td>
+            </tr>
+    </table>
+    <center><input type="submit" value="Login"></center>
+    <input name="url_pass" value="{{ request.get_full_path }}" type="hidden">
+    </form>
+    <p>{{message}}</p>
+    <p>{{error}}</p>
+    <button id="forget">Forget Password</button>
+    
+    <button><a href="register_user">Register</a></button>
+    <br>
+    <hr>
+    <form method="POST" action="forget/" id="forget_password">
+        {% csrf_token %}
+        <label>Email :</label>
+        <input type="email" name="email_verify" required>
+        <input type="submit" value="send_confirmation">
+    </form>
+    <script type="text/javascript">
+        $('#forget').click(function(){
+            $("#forget_password").toggle()
+        })
+        $(document).ready(function () {
+            $('#forget_password').hide()
+        });
+        if ("{{ request.get_full_path }}" == '/login/') {
+            //$('#form_login').attr('action', '/')
+            var new_url = "/";
+            window.history.pushState("data", "Title", new_url);
+            document.title = url;
+        }
+    </script>
+</center>
+{% endif %}
+{% endblock content %}

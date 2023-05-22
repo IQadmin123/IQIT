@@ -1,0 +1,53 @@
+{% extends "core_block.html" %}
+{% block content %}
+<center>
+    <h1>All Games</h1>
+    {% if all_Games %}
+    <table id="game_table" border="1">
+        <thead>
+            <tr>
+                {% for x in data %}
+                <th>{{x}}</th>
+                {% endfor %}
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in all_Games %}
+            <tr>
+                {% for y,z in x.items %}
+                {% if y == 'img' %}
+                <td><img src="{{z}}" alt="img" width="100" height="100"></td>
+                {% else %}
+                <td id="{{x.short_name}}">{{z}}</td>
+                {% endif %}
+                {% endfor %}
+                <td>
+                    <center>
+                        <button><a href="/game/{{x.short_name}}/"><i class="fa fa-pencil" aria-hidden="true"></i></a></button>
+                    </form>
+                    <form action="/game/{{x.short_name}}/" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="_method" value="DELETE">
+                        <!-- <input type="submit" class="fa fa-pencil" aria-hidden="true"> -->    
+                        <button type="submit">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                    <button>
+                        <a href="/partners/{{x.short_name}}/"><i class="fa fa-user" aria-hidden="true"></i>
+                        </a>
+                    </button>
+                </center>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No Game Found</p>
+    {% endif %}
+    <button><a href="/game/add">Add Game</a></button>
+</center>
+{% endblock content %}
+    

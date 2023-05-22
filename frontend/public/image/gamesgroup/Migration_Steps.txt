@@ -1,0 +1,39 @@
+git clone -b shashank.jain5-main-patch-41051 https://gitlab.com/iqinfinite/egg.git
+navigte to : egg/Django_Project/gog
+pip3.9 install -r requirements.txt
+changes in settings.py variable named as DATABASES:
+
+Local Database
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'eggredshift',
+        'USER': 'python_dev',
+        'PASSWORD': 'abcd@1234',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
+
+to
+
+Live Database(Redshift)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django_redshift_backend',
+        'NAME': 'egg-test',
+        'USER': 'pamella',
+        'PASSWORD': 'W6r&5F5a$Y',
+        'HOST': 'egg-redshift1.cwtmse5p1rcl.eu-west-1.redshift.amazonaws.com',
+        'PORT': '5439',
+    }
+}
+
+Migration if required:
+python manage.py makemigrations appname
+python manage.py migrate
+
+then run:
+python manage.py runserver
+
+http://127.0.0.1:8000/login

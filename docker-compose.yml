@@ -1,0 +1,51 @@
+version: '3'
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'iqadmin@123'
+      MYSQL_ROOT_PASSWORD: 'iqadmin@123'
+    ports:
+      - '3305:3305'
+    expose:
+      - '3305'
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - mynetwork
+
+
+  iqit-frontend:
+    build: ./frontend
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    networks:
+      - mynetwork
+  
+  iqit-backend:
+    build: ./backend
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - mynetwork
+
+  
+
+volumes:
+ dbdata:
+
+networks:
+  mynetwork:
+
+
+
+

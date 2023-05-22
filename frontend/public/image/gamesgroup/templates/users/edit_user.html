@@ -1,0 +1,27 @@
+{% extends "core_block.html" %}
+{% block content %}
+<center>
+    <h1>Edit User</h1>
+    <form action="{{ request.get_full_path }}" method="POST">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th>First Name</th>
+                <td><input type="text" value="{{data.first_name}}" name="first_name"></td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td><input type="text" value="{{data.last_name}}" name="last_name"></td>
+            </tr>
+            <tr>
+                <th>Mobile Number:</th>
+                <td><input type="text" value="{{data.mobile_number}}" name="mobile_number"></td>
+            </tr>
+        </table>
+        <center><input type="submit" value="update"></center>
+    </form>
+    <p>{{error}}</p>
+    <p>{{message}}</p>
+</center>
+
+{% endblock content %}

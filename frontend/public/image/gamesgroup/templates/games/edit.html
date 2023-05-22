@@ -1,0 +1,50 @@
+{% extends "core_block.html" %}
+{% block content %}
+{% load filter_tags %}
+<center>
+    <h1>Edit Game</h1>
+    <form action="{{request.path}}" method="POST" enctype="multipart/form-data">
+        <table>
+            {% csrf_token %}
+            <input type="hidden" name="_method" value="PUT">
+            <tr>
+                <th> Id </th>
+                <td><input type="text" value="{{single_game_data.id}}" readonly></td>
+            </tr>
+            <tr>
+                <th> Short Name </th>
+                <td><input type="text" value="{{single_game_data.short_name}}"></td>
+            </tr>
+            <tr>
+                <th> Name </th>
+                <td><input type="text" value="{{single_game_data.namess}}"></td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>
+                    <select name="category_gm">
+                        {% with "Adventure,Puzzles,Tactics"|split:',' as lst%}
+                        {% for x in lst %}
+                        {% if x == single_game_data.category_gm %}
+                        <option name="{{x}}" selected>{{x}}</option>
+                        {% else %}
+                        <option name="{{x}}">{{x}}</option>
+                        {% endif %}
+                        {% endfor %}
+                        {% endwith %}
+                    </select>
+                </td>
+                <tr>
+                    <th>Image</th>
+                    <td><img src="{{single_game_data.img}}" alt="image" width="100" height="100"></td>
+                </tr>
+                <tr>
+                    <th>Change Image</th>
+                    <td><input type="file" accept=".jpg,.png" name="img"></td>
+                </tr>
+            </tr>
+        </table>
+        <input type="submit" value="Update">
+    </form>
+</center>
+{% endblock content %}
