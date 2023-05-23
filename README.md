@@ -26,4 +26,4 @@ Build the containers(frontend , backend , admin , MySql ). \
 The containers are built from a Docker images(node , php ,MySql).
 
 ### docker-compose.yml
-This will spin up three containers:for frontend , backend , admin and MySql
+This will spin up four containers:for frontend , backend , admin and MySql
