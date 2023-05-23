@@ -1,4 +1,4 @@
-# EQSR On Docker
+# EQSR on Docker
 
 ## Prerequisites
 Docker
