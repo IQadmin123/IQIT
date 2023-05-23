@@ -14,8 +14,8 @@ To run the project on Docker, run following command:\
 docker-compose up --build
 
 3.Access the project by visiting `http://0.0.0.0:port` in your web browser.\
-  frontend : http://0.0.0.0:8100\
-  backend  : http://0.0.0.0:8000\
+  frontend : http://0.0.0.0:8100 \
+  backend  : http://0.0.0.0:8000 \
   admin    : http://0.0.0.0:4200
 
 
