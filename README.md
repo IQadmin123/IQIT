@@ -16,12 +16,13 @@ docker-compose up --build
 3.Access the project by visiting `http://0.0.0.0:port` in your web browser. 
   frontend : `http://0.0.0.0:8100`
   backend  : `http://0.0.0.0:8000`
-  admin    : `http://0.0.0.0:4200`
+  admin    : `http://0.0.0.0:4200`.
 
-##Components
 
-##Dockerfile
+## Components
+
+## Dockerfile
 Builds the containers(frontend , backend , admin , MySql ). The containers are built from a Docker images(node , php ).
 
-##docker-compose.yml
+## docker-compose.yml
 This will spin up three containers:for frontend , backend , admin and MySql
