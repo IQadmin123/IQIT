@@ -1,3 +1,26 @@
+## Client Migration Commands
+* php artisan make:migration-client `<migration-name>`
+* php artisan migrate:client list
+
+###### Import Keystore
+
+`keytool -importkeystore -srckeystore eqsr-beta.keystore -destkeystore eqsr-beta.keystore -deststoretype pkcs12`
+
+----------
+###### Windows
+
+`jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore eqsr-beta.keystore D:/eqsr-app/Frontend/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk eqsr-beta`
+
+`jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore eqsr-beta.keystore ~/Sites/eqsr-app/Frontend/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk eqsr-beta.apk`
+
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore eqsr-prod.keystore D:/eqsr-app/Frontend/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk eqsr-prod
+
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore eqsr-beta.keystore ~/Sites/eqsr-app/Frontend/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk eqsr-beta
+
+`C:\Users\Harsh\AppData\Local\Android\Sdk\build-tools\30.0.2\zipalign -v 4 D:/eqsr-app/Frontend/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk eqsr.apk`
+
+/Users/harshpatel/Library/Android/sdk/build-tools/30.0.3/zipalign -v 4 ~/Sites/eqsr-app/Frontend/platforms/android/app/build/outputs/apk/release/app-release-unsigned.apk eqsr-beta.apk
+
 # EQSR on Docker
 
 ## Prerequisites
