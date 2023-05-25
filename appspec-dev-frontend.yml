@@ -1,0 +1,9 @@
+version: 0.0
+os: linux
+files:
+  - source: ./frontend/
+    destination: /var/www/iqit_frontend_dev/
+hooks:
+  AfterInstall:
+    - location: after-install.sh
+      runas: root

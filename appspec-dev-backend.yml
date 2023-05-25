@@ -1,0 +1,12 @@
+version: 0.0
+os: linux
+files:
+  - source: ./backend/
+    destination: /var/www/iqit_backend_dev/
+hooks:
+  AfterInstall:
+    - location: after-install-bd.sh
+      runas: root
+  ApplicationStart:
+    - location: application-start-bd.sh
+      runas: root

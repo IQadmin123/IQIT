@@ -1,2 +1,0 @@
-2023-03-31 09:01:10 [ERROR   ] (Game_Details.list:171)- No partner found.- [url :- /api/game/details/ft]
-2023-03-31 09:01:26 [ERROR   ] (Game_Details.list:171)- No partner found.- [url :- /api/game/details/ft]
